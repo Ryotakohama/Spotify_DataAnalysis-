@@ -1,0 +1,111 @@
+Spotify Data Analysis
+
+Overview
+
+This project extracts track details from Spotify URLs using the Spotify API and stores them in a MySQL database for further analysis. The project also includes SQL queries to analyze the stored track data.
+
+Features
+
+Extracts track metadata (name, artist, album, release date, popularity, duration, and URL) from Spotify.
+
+Stores extracted data into a MySQL database.
+
+Performs SQL-based analysis on track popularity and duration.
+
+Categorizes tracks into popularity groups.
+
+Technologies Used
+
+Python
+
+MySQL
+
+Spotipy (Spotify API wrapper)
+
+Regular Expressions (Regex)
+
+Prerequisites
+
+Install Python (>=3.7)
+
+Install MySQL and create a database
+
+Get Spotify API credentials from Spotify Developer Portal
+
+Install required Python packages:
+
+pip install mysql-connector-python spotipy
+
+Database Setup
+
+Run the following SQL commands to set up the database:
+
+CREATE DATABASE spotify_db;
+USE spotify_db;
+DROP TABLE IF EXISTS spotify_tracks;
+CREATE TABLE spotify_tracks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    track_name VARCHAR(255),
+    artist_name VARCHAR(255),
+    album_name VARCHAR(255),
+    release_date DATE,
+    duration_minutes FLOAT,
+    popularity INT,
+    track_url VARCHAR(255)
+);
+
+How to Run the Script
+
+Clone this repository:
+
+git clone https://github.com/Ryotakohama/Spotify_DataAnalysis-.git
+
+Navigate to the project directory:
+
+cd Spotify_DataAnalysis-
+
+Set up environment variables for Spotify API credentials:
+
+export SPOTIFY_CLIENT_ID='your_client_id'
+export SPOTIFY_CLIENT_SECRET='your_client_secret'
+
+Run the script:
+
+python spotify_analysis.py
+
+SQL Queries for Data Analysis
+
+1. Retrieve Most Popular Song
+
+SELECT track_name, artist_name, album_name, popularity
+FROM spotify_tracks
+ORDER BY popularity DESC
+LIMIT 1;
+
+2. Calculate Average Popularity
+
+SELECT AVG(popularity) AS avg_popularity FROM spotify_tracks;
+
+3. Find Songs Longer than 4 Minutes
+
+SELECT track_name FROM spotify_tracks WHERE duration_minutes > 4.0;
+
+4. Categorize Tracks by Popularity
+
+SELECT 
+    CASE 
+        WHEN popularity >= 80 THEN 'High Popularity'
+        WHEN popularity BETWEEN 50 AND 79 THEN 'Medium Popularity'
+        ELSE 'Low Popularity'
+    END AS popularity_range,
+    COUNT(*) AS track_count
+FROM spotify_tracks
+GROUP BY popularity_range;
+
+Contributions
+
+Feel free to fork this repository and contribute by submitting pull requests.
+
+License
+
+This project is licensed under the MIT License.
