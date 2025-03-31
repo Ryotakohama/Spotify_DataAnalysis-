@@ -102,10 +102,3 @@ SELECT
 FROM spotify_tracks
 GROUP BY popularity_range;
 
-Contributions
-
-Feel free to fork this repository and contribute by submitting pull requests.
-
-License
-
-This project is licensed under the MIT License.
